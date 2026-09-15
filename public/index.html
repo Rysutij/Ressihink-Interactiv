@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ressihink Interactive | Premium Smart Tech & Home Automation Guides</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Tailwind Configuration -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              900: '#0f172a',
+            },
+            accent: {
+              500: '#06b6d4',
+              600: '#0891b2',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Custom Styles for Smooth Glassmorphism and UI Effects -->
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .dark .glass-nav {
+      background: rgba(15, 23, 42, 0.88);
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .dark .gradient-text {
+      background: linear-gradient(135deg, #60a5fa 0%, #22d3ee 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-300">
+
+  <!-- Header / Navigation -->
+  <header class="glass-nav sticky top-0 z-40 border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="navigateTo('home')">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/30">
+          <i class="fa-solid font-bold text-lg fa-microchip"></i>
+        </div>
+        <div>
+          <span class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Ressihink</span>
+          <span class="text-xs uppercase tracking-wider block font-semibold text-blue-600 dark:text-blue-400">Interactive</span>
+        </div>
+      </div>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+        <button onclick="navigateTo('home')" id="nav-home" class="nav-btn px-3.5 py-2 rounded-lg text-xs font-semibold transition-all duration-200 text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30">
+          <i class="fa-solid fa-house mr-1.5"></i>Home
+        </button>
+        <button onclick="filterCategoryAndNavigate('Finance')" id="nav-finance" class="nav-btn px-3.5 py-2 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">
+          <i class="fa-solid fa-wallet mr-1.5 text-emerald-500"></i>Finance Tech
+        </button>
+        <button onclick="filterCategoryAndNavigate('Health')" id="nav-health" class="nav-btn px-3.5 py-2 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">
+          <i class="fa-solid fa-heart-pulse mr-1.5 text-rose-500"></i>Health Trackers
+        </button>
+        <button onclick="filterCategoryAndNavigate('Productivity')" id="nav-productivity" class="nav-btn px-3.5 py-2 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">
+          <i class="fa-solid fa-laptop-code mr-1.5 text-purple-500"></i>Desk Setup
+        </button>
+        <button onclick="filterCategoryAndNavigate('Kitchen')" id="nav-kitchen" class="nav-btn px-3.5 py-2 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">
+          <i class="fa-solid fa-utensils mr-1.5 text-amber-500"></i>Kitchen Gear
+        </button>
+        <button onclick="navigateTo('reviews')" id="nav-reviews" class="nav-btn px-3.5 py-2 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">
+          <i class="fa-solid fa-star mr-1.5 text-yellow-500"></i>Top Reviews
+        </button>
+        <button onclick="navigateTo('contact')" id="nav-contact" class="nav-btn px-3.5 py-2 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">
+          <i class="fa-solid fa-circle-info mr-1.5"></i>About & Contact
+        </button>
+      </nav>
+
+      <!-- Action Controls -->
+      <div class="flex items-center space-x-3">
+        <!-- Theme Toggle -->
+        <button id="themeToggle" onclick="toggleTheme()" class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+          <i class="fa-solid fa-moon dark:hidden text-base"></i>
+          <i class="fa-solid fa-sun hidden dark:block text-base text-amber-400"></i>
+        </button>
+
+        <!-- Mobile Menu Trigger -->
+        <button onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300">
+          <i class="fa-solid fa-bars text-lg"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Dropdown -->
+    <div id="mobileMenu" class="hidden md:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-2 pb-4 space-y-2">
+      <button onclick="navigateTo('home'); toggleMobileMenu()" class="w-full text-left px-4 py-2.5 rounded-lg font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm">
+        <i class="fa-solid fa-house w-6 text-blue-500"></i> Home Page
+      </button>
+      <button onclick="filterCategoryAndNavigate('Finance'); toggleMobileMenu()" class="w-full text-left px-4 py-2.5 rounded-lg font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm">
+        <i class="fa-solid fa-wallet w-6 text-emerald-500"></i> Smart Finance
+      </button>
+      <button onclick="filterCategoryAndNavigate('Health'); toggleMobileMenu()" class="w-full text-left px-4 py-2.5 rounded-lg font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm">
+        <i class="fa-solid fa-heart-pulse w-6 text-rose-500"></i> Health & Wellness
+      </button>
+      <button onclick="filterCategoryAndNavigate('Productivity'); toggleMobileMenu()" class="w-full text-left px-4 py-2.5 rounded-lg font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm">
+        <i class="fa-solid fa-laptop-code w-6 text-purple-500"></i> Productivity & Desk Setup
+      </button>
+      <button onclick="filterCategoryAndNavigate('Kitchen'); toggleMobileMenu()" class="w-full text-left px-4 py-2.5 rounded-lg font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm">
+        <i class="fa-solid fa-utensils w-6 text-amber-500"></i> Smart Kitchen
+      </button>
+      <button onclick="navigateTo('reviews'); toggleMobileMenu()" class="w-full text-left px-4 py-2.5 rounded-lg font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm">
+        <i class="fa-solid fa-star w-6 text-yellow-500"></i> Top Reviews
+      </button>
+      <button onclick="navigateTo('contact'); toggleMobileMenu()" class="w-full text-left px-4 py-2.5 rounded-lg font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm">
+        <i class="fa-solid fa-circle-info w-6 text-blue-500"></i> About & Contact
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN PAGE CONTAINER -->
+  <main class="flex-grow">
+
+    <!-- PAGE 1: HOME PAGE -->
+    <div id="page-home" class="page-content space-y-16 py-8 md:py-12">
+      
+      <!-- Hero Section -->
+      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto space-y-6">
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+            <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span> Smart Home Intelligence 2026
+          </span>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
+            Automate Your Home. <br/><span class="gradient-text">Elevate Your Lifestyle.</span>
+          </h1>
+          <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+            Unbiased benchmark reviews, setup guides, and smart automation insights spanning home finance, biometric health, ergonomic workspaces, and kitchen tech.
+          </p>
+
+          <!-- Interactive Search Bar in Hero -->
+          <div class="pt-2 max-w-xl mx-auto">
+            <div class="relative flex items-center">
+              <i class="fa-solid fa-magnifying-glass absolute left-4 text-slate-400"></i>
+              <input id="heroSearchInput" type="text" placeholder="Search devices e.g. 'Air Purifier', 'Smart Meter', 'Sous Vide'..." class="w-full pl-11 pr-28 py-3.5 rounded-2xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm transition">
+              <button onclick="handleHeroSearch()" class="absolute right-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-semibold transition shadow-md">
+                Search
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Stats Banner -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-slate-200 dark:border-slate-800">
+            <div>
+              <p class="text-2xl font-bold text-slate-900 dark:text-white">120+</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Tested Devices</p>
+            </div>
+            <div>
+              <p class="text-2xl font-bold text-slate-900 dark:text-white">4.9 / 5</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400">User Benchmark Rating</p>
+            </div>
+            <div>
+              <p class="text-2xl font-bold text-slate-900 dark:text-white">100%</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Independent Reviews</p>
+            </div>
+            <div>
+              <p class="text-2xl font-bold text-slate-900 dark:text-white">4 Pillars</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Core Focus Areas</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Four Hub Categories -->
+      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-end mb-8">
+          <div>
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Smart Home Pillars</h2>
+            <p class="text-slate-500 dark:text-slate-400 text-sm">Explore specialized hardware designed to improve every aspect of daily life.</p>
+          </div>
+          <button onclick="navigateTo('categories')" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline hidden sm:block">
+            View Complete Catalog &rarr;
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Finance Hub -->
+          <div onclick="filterCategoryAndNavigate('Finance')" class="group p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 hover:border-blue-500 dark:hover:border-blue-500 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                <i class="fa-solid fa-wallet"></i>
+              </div>
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Smart Finance</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+                Automated coin sorters, energy tracking plugs, and digital budget sync hubs to cut household overhead.
+              </p>
+            </div>
+            <span class="text-xs font-semibold text-blue-600 dark:text-blue-400 group-hover:translate-x-1 transition-transform inline-flex items-center">
+              Explore Finance <i class="fa-solid fa-arrow-right ml-1"></i>
+            </span>
+          </div>
+
+          <!-- Health Hub -->
+          <div onclick="filterCategoryAndNavigate('Health')" class="group p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 hover:border-blue-500 dark:hover:border-blue-500 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-rose-100 dark:bg-rose-900/40 text-rose-600 dark:text-rose-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                <i class="fa-solid fa-heart-pulse"></i>
+              </div>
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Health & Wellness</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+                Air quality monitors, smart hydration bottles, biometric body scales, and sleep tracking lighting.
+              </p>
+            </div>
+            <span class="text-xs font-semibold text-blue-600 dark:text-blue-400 group-hover:translate-x-1 transition-transform inline-flex items-center">
+              Explore Health <i class="fa-solid fa-arrow-right ml-1"></i>
+            </span>
+          </div>
+
+          <!-- Productivity Hub -->
+          <div onclick="filterCategoryAndNavigate('Productivity')" class="group p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 hover:border-blue-500 dark:hover:border-blue-500 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                <i class="fa-solid fa-laptop-code"></i>
+              </div>
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Home Desk Tech</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+                Smart e-ink displays, focus countdowns, noise-canceling acoustics, and ergonomic desk gear.
+              </p>
+            </div>
+            <span class="text-xs font-semibold text-blue-600 dark:text-blue-400 group-hover:translate-x-1 transition-transform inline-flex items-center">
+              Explore Work <i class="fa-solid fa-arrow-right ml-1"></i>
+            </span>
+          </div>
+
+          <!-- Kitchen Hub -->
+          <div onclick="filterCategoryAndNavigate('Kitchen')" class="group p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 hover:border-blue-500 dark:hover:border-blue-500 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                <i class="fa-solid fa-utensils"></i>
+              </div>
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Smart Kitchen</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+                Precision Wi-Fi food scales, interactive recipe displays, and app-controlled sous vide cookers.
+              </p>
+            </div>
+            <span class="text-xs font-semibold text-blue-600 dark:text-blue-400 group-hover:translate-x-1 transition-transform inline-flex items-center">
+              Explore Kitchen <i class="fa-solid fa-arrow-right ml-1"></i>
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Editor's Picks (Featured Gadgets) -->
+      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="border-t border-slate-200 dark:border-slate-800 pt-12">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 gap-4">
+            <div>
+              <span class="text-xs uppercase tracking-widest font-bold text-blue-600 dark:text-blue-400">Featured Benchmarks</span>
+              <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Editor's Top Recommended Gadgets</h2>
+            </div>
+            <button onclick="navigateTo('reviews')" class="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold transition">
+              Browse Scorecards
+            </button>
+          </div>
+
+          <div id="homeFeaturedGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Dynamically populated by JS -->
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+
+    <!-- PAGE 2: CATEGORIES & CATALOG HUB -->
+    <div id="page-categories" class="page-content hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 space-y-8">
+      
+      <div class="border-b border-slate-200 dark:border-slate-800 pb-6 flex flex-col md:flex-row justify-between md:items-end gap-4">
+        <div>
+          <h1 class="text-3xl font-extrabold text-slate-900 dark:text-white" id="catalogTitle">Smart Gadgets Directory</h1>
+          <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Filter and search our complete collection of tested smart hardware and reviews.</p>
+        </div>
+      </div>
+
+      <!-- Controls & Filter Toolbar -->
+      <div class="flex flex-col lg:flex-row gap-4 items-center justify-between bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+        
+        <!-- Search Field -->
+        <div class="relative w-full lg:w-72">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-xs"></i>
+          <input id="catalogSearchInput" oninput="renderCatalog()" type="text" placeholder="Search directory..." class="w-full pl-9 pr-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <!-- Filter Pills -->
+        <div class="flex flex-wrap gap-2 w-full lg:w-auto">
+          <button onclick="setFilterCategory('All')" class="filter-pill px-3.5 py-1.5 rounded-xl text-xs font-semibold transition bg-blue-600 text-white" data-cat="All">All Categories</button>
+          <button onclick="setFilterCategory('Finance')" class="filter-pill px-3.5 py-1.5 rounded-xl text-xs font-semibold transition bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300" data-cat="Finance">Finance</button>
+          <button onclick="setFilterCategory('Health')" class="filter-pill px-3.5 py-1.5 rounded-xl text-xs font-semibold transition bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300" data-cat="Health">Health</button>
+          <button onclick="setFilterCategory('Productivity')" class="filter-pill px-3.5 py-1.5 rounded-xl text-xs font-semibold transition bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300" data-cat="Productivity">Productivity</button>
+          <button onclick="setFilterCategory('Kitchen')" class="filter-pill px-3.5 py-1.5 rounded-xl text-xs font-semibold transition bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300" data-cat="Kitchen">Kitchen</button>
+        </div>
+
+        <!-- Sort Dropdown -->
+        <div class="w-full lg:w-auto flex items-center gap-2 justify-end">
+          <span class="text-xs text-slate-500 dark:text-slate-400">Sort:</span>
+          <select id="catalogSortSelect" onchange="renderCatalog()" class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 text-xs rounded-xl border border-slate-200 dark:border-slate-700 px-3 py-2 focus:outline-none">
+            <option value="rating">Highest Rated</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Catalog Grid Output -->
+      <div id="catalogGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+
+
+    <!-- PAGE 3: TOP REVIEWS & SCORECARDS -->
+    <div id="page-reviews" class="page-content hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 space-y-12">
+      
+      <div class="text-center max-w-2xl mx-auto space-y-3">
+        <h1 class="text-3xl font-extrabold text-slate-900 dark:text-white">Device Leaderboard & Scorecards</h1>
+        <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm">
+          Detailed benchmarks evaluated based on build quality, app integration, value retention, and long-term hardware reliability.
+        </p>
+      </div>
+
+      <!-- Top Score Leaderboard Container -->
+      <div id="topRankedContainer" class="space-y-4">
+        <!-- Leaderboard items rendered by JS -->
+      </div>
+    </div>
+
+
+    <!-- PAGE 4: ABOUT & CONTACT -->
+    <div id="page-contact" class="page-content hidden max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 space-y-12">
+      
+      <!-- Mission Banner -->
+      <div class="bg-gradient-to-r from-blue-600 to-cyan-600 rounded-3xl p-8 md:p-12 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-8">
+        <div class="space-y-4 max-w-xl">
+          <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-semibold uppercase tracking-wider">About Ressihink</span>
+          <h2 class="text-3xl font-extrabold">Smart Living, Simplifed.</h2>
+          <p class="text-blue-100 text-sm leading-relaxed">
+            Ressihink Interactive delivers independent technology reviews and smart home blueprints. We test hardware in real homes for 14+ days before publishing benchmarks.
+          </p>
+        </div>
+        <div class="w-full md:w-auto flex-shrink-0">
+          <form onsubmit="handleSubscribe(event)" class="bg-white/10 backdrop-blur-md p-2 rounded-2xl border border-white/20 flex flex-col sm:flex-row gap-2">
+            <input id="newsletterEmail" type="email" required placeholder="Enter your email..." class="px-4 py-2.5 rounded-xl bg-white text-slate-900 placeholder-slate-400 text-xs focus:outline-none w-full sm:w-60">
+            <button type="submit" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-semibold transition">
+              Subscribe
+            </button>
+          </form>
+          <p class="text-[11px] text-blue-200 mt-2 text-center sm:text-left">Weekly hardware updates. No spam ever.</p>
+        </div>
+      </div>
+
+      <!-- Contact Form & Editorial Standard -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white dark:bg-slate-800 p-8 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-6">
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white">Get in Touch</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Want us to test a specific product or offer feedback? Send our editorial team a message.</p>
+          
+          <form onsubmit="handleContactSubmit(event)" class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Your Name</label>
+              <input type="text" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Email Address</label>
+              <input type="email" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Message</label>
+              <textarea rows="4" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+            </div>
+            <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl text-xs transition shadow-md">
+              Submit Message
+            </button>
+          </form>
+        </div>
+
+        <div class="space-y-6 flex flex-col justify-between">
+          <div class="bg-white dark:bg-slate-800 p-8 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white">Testing Guidelines</h3>
+            <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300">
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-circle-check text-emerald-500 mt-1"></i>
+                <p>Every product undergoes 14+ days of active testing in real residential environments.</p>
+              </div>
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-circle-check text-emerald-500 mt-1"></i>
+                <p>We test Wi-Fi 6 stability, energy efficiency, firmware security, and privacy policies.</p>
+              </div>
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-circle-check text-emerald-500 mt-1"></i>
+                <p>Zero sponsored placement — device rankings are calculated strictly by performance scorecards.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-slate-100 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+            <p class="text-xs text-slate-500 dark:text-slate-400">
+              <strong class="text-slate-700 dark:text-slate-200">Note:</strong> Ressihink Interactive participates in affiliate programs. Clicking our links may earn us a referral bonus at no extra cost to you.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- PRODUCT DETAIL MODAL -->
+  <div id="productModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm transition-opacity">
+    <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-slate-200 dark:border-slate-700 shadow-2xl p-6 sm:p-8 space-y-6 relative">
+      
+      <!-- Close Button -->
+      <button onclick="closeModal()" class="absolute top-6 right-6 w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 flex items-center justify-center transition">
+        <i class="fa-solid fa-xmark text-base"></i>
+      </button>
+
+      <!-- Modal Body Content -->
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="mt-20 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col md:flex-row justify-between items-center gap-6">
+      
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-cyan-500 flex items-center justify-center text-white font-bold text-xs">
+          RI
+        </div>
+        <p class="text-xs text-slate-500 dark:text-slate-400">
+          &copy; 2026 Ressihink Interactive. Built for modern automated homes.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap gap-4 text-xs text-slate-500 dark:text-slate-400">
+        <a href="#" onclick="navigateTo('home')" class="hover:text-blue-600 dark:hover:text-blue-400">Home</a>
+        <a href="#" onclick="filterCategoryAndNavigate('Finance')" class="hover:text-blue-600 dark:hover:text-blue-400">Finance</a>
+        <a href="#" onclick="filterCategoryAndNavigate('Health')" class="hover:text-blue-600 dark:hover:text-blue-400">Health</a>
+        <a href="#" onclick="filterCategoryAndNavigate('Productivity')" class="hover:text-blue-600 dark:hover:text-blue-400">Desk Tech</a>
+        <a href="#" onclick="filterCategoryAndNavigate('Kitchen')" class="hover:text-blue-600 dark:hover:text-blue-400">Kitchen</a>
+        <a href="#" onclick="navigateTo('reviews')" class="hover:text-blue-600 dark:hover:text-blue-400">Top Reviews</a>
+        <a href="#" onclick="navigateTo('contact')" class="hover:text-blue-600 dark:hover:text-blue-400">About</a>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT APP LOGIC -->
+  <script>
+    // PRODUCT & GADGET DATABASE
+    const GADGETS = [
+      {
+        id: 'fin-1',
+        title: 'Smart Meter Sync Hub 3',
+        category: 'Finance',
+        price: 89.99,
+        rating: 4.8,
+        badge: 'Best Budget Saver',
+        image: 'https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?auto=format&fit=crop&w=800&q=80',
+        summary: 'Monitors circuit-level power usage and syncs with budgeting tools to calculate real-time utility costs.',
+        specs: ['Wi-Fi 6 Connected', 'iOS & Android Sync', 'Solar Panel Compatible', '0.5s Energy Refresh Rate'],
+        pros: ['Cuts utility spending up to 18%', 'Push alerts for irregular energy spikes'],
+        cons: ['Requires basic electric panel installation']
+      },
+      {
+        id: 'fin-2',
+        title: 'AutomateCoin Digital Sorter',
+        category: 'Finance',
+        price: 45.00,
+        rating: 4.6,
+        badge: 'Top Cash Sorter',
+        image: 'https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=800&q=80',
+        summary: 'Laser-counts spare change and automatically syncs total cash savings directly to your home ledger display.',
+        specs: ['LCD Live Counter', 'USB-C Rechargeable', 'Holds up to $500 in coins'],
+        pros: ['Eliminates manual coin rolling', '99.9% counting accuracy'],
+        cons: ['Slight noise during high volume dumps']
+      },
+      {
+        id: 'hlth-1',
+        title: 'AeroPure Smart Air Monitor Pro',
+        category: 'Health',
+        price: 129.99,
+        rating: 4.9,
+        badge: 'Editor Choice',
+        image: 'https://images.unsplash.com/photo-1510006851064-e605670e3a8b?auto=format&fit=crop&w=800&q=80',
+        summary: 'Detects PM2.5, CO2, humidity, and VOC levels while triggering automated home air purifiers.',
+        specs: ['E-Ink Display', 'HomeKit & Alexa Integration', 'Battery Backup Included'],
+        pros: ['Glare-free E-ink screen', 'Instant automation trigger'],
+        cons: ['Sensors require yearly calibration']
+      },
+      {
+        id: 'hlth-2',
+        title: 'HydraGauge Bluetooth Bottle',
+        category: 'Health',
+        price: 59.95,
+        rating: 4.5,
+        badge: 'Wellness Pick',
+        image: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=800&q=80',
+        summary: 'Tracks fluid intake throughout the day and glows subtle reminders when you fall behind your water goals.',
+        specs: ['24oz Vacuum Insulated', 'UV-C Self Cleaning Cap', '7-day Battery Life'],
+        pros: ['Keeps liquids cold for 24 hours', 'Built-in UV water purification'],
+        cons: ['A bit heavy when completely filled']
+      },
+      {
+        id: 'prod-1',
+        title: 'ChronoDesk Dynamic E-Ink Screen',
+        category: 'Productivity',
+        price: 149.00,
+        rating: 4.9,
+        badge: 'Top Desk Tech',
+        image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80',
+        summary: 'A phone-free desk widget that displays calendar events, Pomodoro timers, and tasks without notification distractions.',
+        specs: ['7.5-inch HD E-Ink', 'Custom Widget Engine', 'Type-C Powered'],
+        pros: ['Zero glare or blue light', 'Enhances focus during deep work'],
+        cons: ['Grayscale screen only']
+      },
+      {
+        id: 'prod-2',
+        title: 'AcousticLight Focus Desk Lamp',
+        category: 'Productivity',
+        price: 119.50,
+        rating: 4.7,
+        badge: 'Ergonomic Choice',
+        image: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=80',
+        summary: 'Circadian lighting that adjusts color temperature throughout the day while emitting ambient white noise.',
+        specs: ['CRI 95 Color Accuracy', 'White Noise Sound Masking', 'Wireless Charging Pad'],
+        pros: ['Reduces eye strain at night', 'Saves desk space'],
+        cons: ['Speaker lacks deep bass']
+      },
+      {
+        id: 'ktch-1',
+        title: 'ChefScale Wi-Fi Sous-Precision',
+        category: 'Kitchen',
+        price: 79.99,
+        rating: 4.8,
+        badge: 'Must Have',
+        image: 'https://images.unsplash.com/photo-1556910103-1c02745a872f?auto=format&fit=crop&w=800&q=80',
+        summary: 'Measures ingredients down to 0.1g while syncing real-time recipe steps to your tablet.',
+        specs: ['Tempered Glass Surface', 'Tare Auto Zeroing', 'Interactive Recipe App'],
+        pros: ['Flawless baking precision', 'Waterproof touch panel'],
+        cons: ['Requires 2.4GHz Wi-Fi band']
+      },
+      {
+        id: 'ktch-2',
+        title: 'OmniCook Sous Vide Circulator',
+        category: 'Kitchen',
+        price: 139.99,
+        rating: 4.7,
+        badge: 'Pro Chef Tool',
+        image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80',
+        summary: 'Precision immersion circulator delivering restaurant-quality temperature control for meat and vegetables.',
+        specs: ['1100 Watts Heating', 'IPX7 Waterproof', 'Mobile App Timer Controls'],
+        pros: ['Ultra-quiet motor operation', 'Accurate within 0.1°F'],
+        cons: ['Requires a deep cooking vessel']
+      }
+    ];
+
+    let currentFilterCategory = 'All';
+
+    // NAVIGATION ENGINE
+    function navigateTo(pageId) {
+      document.querySelectorAll('.page-content').forEach(el => el.classList.add('hidden'));
+      
+      const target = document.getElementById(`page-${pageId}`);
+      if (target) target.classList.remove('hidden');
+
+      // Update Nav Buttons State
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('text-blue-600', 'dark:text-blue-400', 'bg-blue-50', 'dark:bg-blue-900/30');
+        btn.classList.add('text-slate-600', 'dark:text-slate-300');
+      });
+
+      const activeBtn = document.getElementById(`nav-${pageId}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('text-slate-600', 'dark:text-slate-300');
+        activeBtn.classList.add('text-blue-600', 'dark:text-blue-400', 'bg-blue-50', 'dark:bg-blue-900/30');
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    }
+
+    // DARK / LIGHT THEME TOGGLE
+    function toggleTheme() {
+      document.documentElement.classList.toggle('dark');
+    }
+
+    // CATEGORY FILTER & SEARCH LOGIC
+    function filterCategoryAndNavigate(cat) {
+      setFilterCategory(cat);
+      navigateTo('categories');
+    }
+
+    function setFilterCategory(cat) {
+      currentFilterCategory = cat;
+      
+      // Update Filter Pill UI
+      document.querySelectorAll('.filter-pill').forEach(btn => {
+        if (btn.getAttribute('data-cat') === cat) {
+          btn.className = 'filter-pill px-3.5 py-1.5 rounded-xl text-xs font-semibold transition bg-blue-600 text-white';
+        } else {
+          btn.className = 'filter-pill px-3.5 py-1.5 rounded-xl text-xs font-semibold transition bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300';
+        }
+      });
+
+      // Update Page Title dynamically
+      const titleEl = document.getElementById('catalogTitle');
+      if (titleEl) {
+        titleEl.textContent = cat === 'All' ? 'Smart Gadgets Directory' : `${cat} Hardware & Guides`;
+      }
+
+      renderCatalog();
+    }
+
+    function handleHeroSearch() {
+      const query = document.getElementById('heroSearchInput').value.trim();
+      if (query) {
+        document.getElementById('catalogSearchInput').value = query;
+        navigateTo('categories');
+        renderCatalog();
+      }
+    }
+
+    // RENDER HOME FEATURED CARDS
+    function renderHomeFeatured() {
+      const container = document.getElementById('homeFeaturedGrid');
+      const featured = GADGETS.slice(0, 3);
+
+      container.innerHTML = featured.map(item => `
+        <div onclick="openModal('${item.id}')" class="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col">
+          <div class="relative h-48 overflow-hidden bg-slate-100 dark:bg-slate-900">
+            <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-md text-white text-[10px] uppercase tracking-wider font-bold px-2.5 py-1 rounded-lg">
+              ${item.badge}
+            </span>
+          </div>
+          <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex justify-between items-center text-xs text-slate-500 dark:text-slate-400 mb-1">
+                <span>${item.category}</span>
+                <span class="text-amber-500 font-semibold"><i class="fa-solid fa-star mr-1"></i>${item.rating}</span>
+              </div>
+              <h3 class="font-bold text-slate-900 dark:text-white text-base group-hover:text-blue-600 transition-colors">${item.title}</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 line-clamp-2 leading-relaxed">${item.summary}</p>
+            </div>
+            <div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700">
+              <span class="text-lg font-extrabold text-slate-900 dark:text-white">$${item.price.toFixed(2)}</span>
+              <span class="text-xs font-semibold text-blue-600 dark:text-blue-400">Read Review &rarr;</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // RENDER CATALOG GRID
+    function renderCatalog() {
+      const container = document.getElementById('catalogGrid');
+      const searchQuery = (document.getElementById('catalogSearchInput')?.value || '').toLowerCase();
+      const sortOption = document.getElementById('catalogSortSelect')?.value || 'rating';
+
+      let filtered = GADGETS.filter(item => {
+        const matchesCategory = (currentFilterCategory === 'All') || (item.category === currentFilterCategory);
+        const matchesSearch = item.title.toLowerCase().includes(searchQuery) || item.summary.toLowerCase().includes(searchQuery);
+        return matchesCategory && matchesSearch;
+      });
+
+      if (sortOption === 'price-asc') {
+        filtered.sort((a, b) => a.price - b.price);
+      } else if (sortOption === 'price-desc') {
+        filtered.sort((a, b) => b.price - a.price);
+      } else {
+        filtered.sort((a, b) => b.rating - a.rating);
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full py-12 text-center space-y-3">
+            <i class="fa-solid fa-ghost text-4xl text-slate-400"></i>
+            <p class="text-slate-600 dark:text-slate-300 font-medium text-sm">No smart devices match your search criteria.</p>
+            <button onclick="setFilterCategory('All'); document.getElementById('catalogSearchInput').value='';" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Reset Filters</button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(item => `
+        <div onclick="openModal('${item.id}')" class="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col">
+          <div class="relative h-48 overflow-hidden bg-slate-100 dark:bg-slate-900">
+            <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-md text-white text-[10px] uppercase tracking-wider font-bold px-2.5 py-1 rounded-lg">
+              ${item.category}
+            </span>
+          </div>
+          <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex justify-between items-center text-xs text-slate-500 dark:text-slate-400 mb-1">
+                <span class="text-amber-500 font-semibold"><i class="fa-solid fa-star mr-1"></i>${item.rating} Rating</span>
+                <span class="font-medium">$${item.price.toFixed(2)}</span>
+              </div>
+              <h3 class="font-bold text-slate-900 dark:text-white text-base group-hover:text-blue-600 transition-colors">${item.title}</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 line-clamp-2 leading-relaxed">${item.summary}</p>
+            </div>
+            <div class="pt-3 border-t border-slate-100 dark:border-slate-700 flex justify-between items-center">
+              <span class="text-[11px] text-slate-400">${item.badge}</span>
+              <span class="text-xs font-semibold text-blue-600 dark:text-blue-400">View Benchmark &rarr;</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // RENDER REVIEWS LEADERBOARD
+    function renderTopReviews() {
+      const container = document.getElementById('topRankedContainer');
+      const sorted = [...GADGETS].sort((a,b) => b.rating - a.rating);
+
+      container.innerHTML = sorted.map((item, index) => `
+        <div onclick="openModal('${item.id}')" class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:border-blue-500 transition cursor-pointer flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex items-center space-x-4 w-full sm:w-auto">
+            <span class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white font-extrabold text-xs flex items-center justify-center flex-shrink-0">
+              #${index + 1}
+            </span>
+            <img src="${item.image}" alt="${item.title}" class="w-14 h-14 rounded-xl object-cover flex-shrink-0">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">${item.category}</span>
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white">${item.title}</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-1">${item.summary}</p>
+            </div>
+          </div>
+          <div class="flex items-center justify-between w-full sm:w-auto sm:space-x-6 border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-100 dark:border-slate-700">
+            <div class="text-right">
+              <p class="text-[11px] text-slate-400">Scorecard</p>
+              <p class="text-sm font-extrabold text-amber-500"><i class="fa-solid fa-star text-xs mr-1"></i>${item.rating} / 5.0</p>
+            </div>
+            <button class="px-3.5 py-2 bg-slate-100 dark:bg-slate-700 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 text-slate-800 dark:text-slate-200 text-xs font-semibold rounded-xl transition">
+              View
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // MODAL DIALOG CONTROLLER
+    function openModal(gadgetId) {
+      const item = GADGETS.find(g => g.id === gadgetId);
+      if (!item) return;
+
+      const modalBody = document.getElementById('modalBody');
+      modalBody.innerHTML = `
+        <div class="space-y-6">
+          <div class="relative h-52 sm:h-60 rounded-2xl overflow-hidden">
+            <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover">
+            <span class="absolute top-4 left-4 bg-slate-900/80 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-lg">
+              ${item.category}
+            </span>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-start gap-4">
+              <div>
+                <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white">${item.title}</h2>
+                <p class="text-xs text-slate-400 mt-1">Award: ${item.badge}</p>
+              </div>
+              <div class="text-right">
+                <span class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">$${item.price.toFixed(2)}</span>
+                <p class="text-xs font-semibold text-amber-500"><i class="fa-solid fa-star mr-1"></i>${item.rating} Rating</p>
+              </div>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-3 leading-relaxed">${item.summary}</p>
+          </div>
+
+          <!-- Specifications -->
+          <div class="space-y-2">
+            <h4 class="text-xs uppercase tracking-wider font-bold text-slate-400">Specifications</h4>
+            <div class="grid grid-cols-2 gap-2">
+              ${item.specs.map(spec => `
+                <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                  <i class="fa-solid fa-check text-blue-500"></i> ${spec}
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- Pros and Cons -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            <div class="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/40">
+              <h5 class="text-xs font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider mb-2">Key Advantages</h5>
+              <ul class="text-xs text-emerald-800 dark:text-emerald-300 space-y-1 list-disc list-inside">
+                ${item.pros.map(p => `<li>${p}</li>`).join('')}
+              </ul>
+            </div>
+            <div class="p-4 rounded-xl bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/40">
+              <h5 class="text-xs font-bold text-rose-700 dark:text-rose-400 uppercase tracking-wider mb-2">Considerations</h5>
+              <ul class="text-xs text-rose-800 dark:text-rose-300 space-y-1 list-disc list-inside">
+                ${item.cons.map(c => `<li>${c}</li>`).join('')}
+              </ul>
+            </div>
+          </div>
+
+          <!-- Modal Buttons -->
+          <div class="pt-4 flex gap-3 border-t border-slate-100 dark:border-slate-700">
+            <button onclick="closeModal()" class="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl text-xs transition shadow-md">
+              Close Preview
+            </button>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('productModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('productModal').classList.add('hidden');
+    }
+
+    // FORM HANDLERS
+    function handleSubscribe(e) {
+      e.preventDefault();
+      const email = document.getElementById('newsletterEmail').value;
+      const msg = document.createElement('div');
+      msg.className = "fixed bottom-6 right-6 bg-emerald-600 text-white px-5 py-3 rounded-2xl shadow-xl text-xs font-semibold z-50 animate-bounce";
+      msg.innerText = `Subscribed successfully with ${email}!`;
+      document.body.appendChild(msg);
+      setTimeout(() => msg.remove(), 4000);
+      document.getElementById('newsletterEmail').value = '';
+    }
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      const msg = document.createElement('div');
+      msg.className = "fixed bottom-6 right-6 bg-blue-600 text-white px-5 py-3 rounded-2xl shadow-xl text-xs font-semibold z-50";
+      msg.innerText = `Thank you! Your message has been sent to our team.`;
+      document.body.appendChild(msg);
+      setTimeout(() => msg.remove(), 4000);
+      e.target.reset();
+    }
+
+    // APP INITIALIZATION
+    window.onload = function() {
+      renderHomeFeatured();
+      renderCatalog();
+      renderTopReviews();
+    };
+  </script>
+</body>
+</html>
